@@ -1,0 +1,16 @@
+[package]
+name = "cpp-serialize"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+dyn-any.workspace = true
+glam.features = ["std"]
+glam.workspace = true
+graph-craft = { path = "../graph-craft", features = ["serde"]}
+graphene-core = { workspace = true }
+node-macro = { version = "0.0.0", path = "../node-macro" }
+serde_json = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+futures.workspace = true
+interpreted-executor = { version = "0.1.0", path = "../interpreted-executor" }
