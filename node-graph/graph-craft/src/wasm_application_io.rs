@@ -208,6 +208,7 @@ impl ApplicationIo for WasmApplicationIo {
 	fn create_window(&self) -> SurfaceHandle<Self::Surface> {
 		log::trace!("Spawning window");
 
+		/*
 		#[cfg(not(test))]
 		use winit::platform::wayland::EventLoopBuilderExtWayland;
 
@@ -215,6 +216,7 @@ impl ApplicationIo for WasmApplicationIo {
 		let event_loop = winit::event_loop::EventLoopBuilder::new().with_any_thread(true).build().unwrap();
 
 		#[cfg(test)]
+		*/
 		let event_loop = winit::event_loop::EventLoop::new().unwrap();
 		let window = winit::window::WindowBuilder::new()
 			.with_title("Graphite")
