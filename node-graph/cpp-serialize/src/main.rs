@@ -6,8 +6,12 @@ use graph_craft::document::value::*;
 use graph_craft::document::*;
 use graph_craft::graphene_compiler::*;
 use graph_craft::*;
+use graphene_core::OwnedContextImpl;
 use graphene_core::{Context, concrete};
 use interpreted_executor::dynamic_executor::DynamicExecutor;
+
+#[derive(Debug, Clone, Copy, dyn_any::DynAny, PartialEq)]
+struct TestContext {}
 
 fn main() {
 	// Create a simple network that adds two numbers
@@ -66,9 +70,11 @@ fn main() {
 	// Create the executor
 	let executor = block_on(DynamicExecutor::new(proto_network)).expect("Failed to create executor");
 
-	let context = Context::default();
+	//let context = OwnedContextImpl::default().into_context();
+	//let context = OwnedContextImpl::default();
+	let test_context = TestContext {};
 
-	let result = block_on((&executor).execute(context)).expect("Failed to execute network");
+	let result = block_on((&executor).execute(test_context)).expect("Failed to execute network");
 	println!("5 + 42 = {}", result);
 
 	// let exec = block_on(DynamicExecutor::new(proto_network));
