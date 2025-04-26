@@ -16,7 +16,7 @@ struct TestContext {}
 fn main() {
 	// Create a simple network that adds two numbers
 	let network = NodeNetwork {
-		exports: vec![NodeInput::node(NodeId(0), 0)],
+		exports: vec![NodeInput::node(NodeId(1), 0)],
 
 		nodes: [
 			(
@@ -25,6 +25,15 @@ fn main() {
 				inputs: vec![NodeInput::value(TaggedValue::U32(5), false), NodeInput::value(TaggedValue::U32(42), false)],
 				implementation: DocumentNodeImplementation::ProtoNode(ProtoNodeIdentifier::new("graphene_core::ops::AddNode")),
 				manual_composition: Some(concrete!(Context)),
+				..Default::default()
+			},
+		),
+			(
+			NodeId(1),
+			DocumentNode {
+				inputs: vec![ NodeInput::node(NodeId(0), 0)],
+				implementation: DocumentNodeImplementation::ProtoNode(ProtoNodeIdentifier::new("graphene_core::context::EmptyContextNode")),
+				manual_composition: Some(concrete!(())),
 				..Default::default()
 			},
 		)
@@ -74,7 +83,7 @@ fn main() {
 	//let context = OwnedContextImpl::default();
 	let test_context = TestContext {};
 
-	let result = block_on((&executor).execute(test_context)).expect("Failed to execute network");
+	let result = block_on((&executor).execute(())).expect("Failed to execute network");
 	println!("5 + 42 = {}", result);
 
 	// let exec = block_on(DynamicExecutor::new(proto_network));

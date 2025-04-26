@@ -234,6 +234,11 @@ impl CloneVarArgs for Arc<OwnedContextImpl> {
 	}
 }
 
+#[node_macro::node]
+async fn empty_context<T>(_: (), #[implementations(Context->u32)] input: impl Node<Context<'static>, Output = T>) -> T {
+	input.eval(None).await
+}
+
 pub type Context<'a> = Option<Arc<OwnedContextImpl>>;
 type DynRef<'a> = &'a (dyn Any + Send + Sync);
 type DynBox = Box<dyn Any + Send + Sync>;
