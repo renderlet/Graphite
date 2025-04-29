@@ -175,6 +175,7 @@ tagged_value! {
 	U64(u64),
 	// TODO: Eventually remove this alias document upgrade code
 	#[cfg_attr(feature = "serde", serde(alias = "F32"))]
+	//F32(f32),
 	F64(f64),
 	OptionalF64(Option<f64>),
 	Bool(bool),
